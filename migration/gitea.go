@@ -78,6 +78,7 @@ type CreateOrgOption struct {
 	Name        string
 	Description string
 	Visibility  bool
+	Location    string
 }
 
 // CreateAndGetOrg create and get organization
@@ -92,6 +93,7 @@ func (g *gitea) CreateAndGetOrg(opts CreateOrgOption) (*gsdk.Organization, error
 			Name:        opts.Name,
 			Description: opts.Description,
 			Visibility:  visible,
+			Location:    opts.Locaion,
 		})
 		if err != nil {
 			return nil, err
@@ -193,8 +195,8 @@ func (g *gitea) CreateOrGetTeam(org, permission string) (*gsdk.Team, error) {
 	switch permission {
 	case ProjectAdmin:
 		opt = gsdk.CreateTeamOption{
-			Name:                    "OrgAdmin",
-			Description:             "OrgAdmin",
+			Name:                    "Admin",
+			Description:             "Admin",
 			Permission:              gsdk.AccessModeAdmin,
 			IncludesAllRepositories: true,
 			CanCreateOrgRepo:        true,
@@ -213,8 +215,8 @@ func (g *gitea) CreateOrGetTeam(org, permission string) (*gsdk.Team, error) {
 		}
 	case ProjectWrite:
 		opt = gsdk.CreateTeamOption{
-			Name:                    "OrgWriter",
-			Description:             "OrgWriter",
+			Name:                    "Write",
+			Description:             "Write",
 			Permission:              gsdk.AccessModeWrite,
 			IncludesAllRepositories: true,
 			Units: []gsdk.RepoUnitType{
@@ -223,17 +225,14 @@ func (g *gitea) CreateOrGetTeam(org, permission string) (*gsdk.Team, error) {
 				gsdk.RepoUnitExtIssues,
 				gsdk.RepoUnitExtWiki,
 				gsdk.RepoUnitPackages,
-				gsdk.RepoUnitProjects,
 				gsdk.RepoUnitPulls,
 				gsdk.RepoUnitReleases,
-				gsdk.RepoUnitWiki,
-				gsdk.RepoUnitActions,
 			},
 		}
 	case ProjectRead:
 		opt = gsdk.CreateTeamOption{
-			Name:                    "OrgReader",
-			Description:             "OrgReader",
+			Name:                    "Read",
+			Description:             "Read",
 			Permission:              gsdk.AccessModeRead,
 			IncludesAllRepositories: true,
 			Units: []gsdk.RepoUnitType{
@@ -242,17 +241,14 @@ func (g *gitea) CreateOrGetTeam(org, permission string) (*gsdk.Team, error) {
 				gsdk.RepoUnitExtIssues,
 				gsdk.RepoUnitExtWiki,
 				gsdk.RepoUnitPackages,
-				gsdk.RepoUnitProjects,
 				gsdk.RepoUnitPulls,
 				gsdk.RepoUnitReleases,
-				gsdk.RepoUnitWiki,
-				gsdk.RepoUnitActions,
 			},
 		}
 	case RepoCreate:
 		opt = gsdk.CreateTeamOption{
-			Name:                    "RepoCreater",
-			Description:             "RepoCreater",
+			Name:                    "RepoCreate",
+			Description:             "RepoCreate",
 			Permission:              gsdk.AccessModeRead,
 			IncludesAllRepositories: false,
 			CanCreateOrgRepo:        true,
