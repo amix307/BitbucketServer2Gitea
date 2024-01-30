@@ -78,7 +78,6 @@ type CreateOrgOption struct {
 	Name        string
 	Description string
 	Visibility  bool
-	Location    string
 }
 
 // CreateAndGetOrg create and get organization
@@ -93,7 +92,6 @@ func (g *gitea) CreateAndGetOrg(opts CreateOrgOption) (*gsdk.Organization, error
 			Name:        opts.Name,
 			Description: opts.Description,
 			Visibility:  visible,
-			Location:    opts.Locaion,
 		})
 		if err != nil {
 			return nil, err
