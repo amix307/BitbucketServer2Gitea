@@ -4,7 +4,6 @@ import (
 	"context"
 	"log/slog"
 	"os"
-	"strings"
 
 	bitbucketv1 "github.com/gfleury/go-bitbucket-v1"
 )
